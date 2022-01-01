@@ -1,0 +1,23 @@
+name: Skytizen-Core
+version: '${project.version}'
+main: me.waiaf.skytizencore.Main
+api-version: 1.17
+authors: [ WaIaF ]
+description: Core plugin for Skytizen
+commands:
+  creative:
+    usage: /creative
+    description: chuyển sang chế độ sáng tạo
+    aliases: [gmc]
+  survival:
+    usage: /survival
+    description: chuyển sang chế độ sinh tồn
+    aliases: [gms]
+  adventure:
+    usage: /adventure
+    description: chuyển sang chế độ thám hiểm
+    aliases: [gma]
+  spectator:
+    usage: /spectator
+    description: chuyển sang chế độ kháng giả
+    aliases: [gmsp]
