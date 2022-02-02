@@ -1,13 +1,18 @@
 package me.waiaf.skytizencore;
 
 import me.waiaf.skytizencore.commands.PluginCommand;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public final class Main extends JavaPlugin {
+
+    public static HashMap<Player, ArrayList<Profile>> playerProfiles = new HashMap<>();
 
     @Override
     public void onEnable(){
