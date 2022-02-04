@@ -9,13 +9,17 @@ import org.reflections.Reflections;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public final class Main extends JavaPlugin {
 
     public static HashMap<Player, ArrayList<Profile>> playerProfiles = new HashMap<>();
+    public static HashMap<Player, Profile> playerSelectedProfile = new HashMap<>();
 
     @Override
     public void onEnable(){
+
+        ItemManager.init();
 
         String packageName = this.getClass().getPackage().getName();
         
@@ -39,7 +43,7 @@ public final class Main extends JavaPlugin {
             try {
 
                 PluginCommand pluginCommand = clazz.getDeclaredConstructor().newInstance();
-                this.getCommand(pluginCommand.getCommandInfo().name()).setExecutor(pluginCommand);
+                Objects.requireNonNull(this.getCommand(pluginCommand.getCommandInfo().name())).setExecutor(pluginCommand);
 
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e){
 

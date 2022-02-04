@@ -1,21 +1,27 @@
 package me.waiaf.skytizencore;
 
+import me.waiaf.skytizencore.enums.ProfileType;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Profile {
 
     public ArrayList<Player> players = new ArrayList<>();
     public String profileName;
     public World world;
+    public HashMap<Player, Inventory> playerInventory = new HashMap<>();
+    public ProfileType profileType;
 
-    public Profile(Player player, World world, String profileName){
+    public Profile(Player player, World world, String profileName, ProfileType profileType){
 
         this.players.add(player);
         this.world = world;
         this.profileName = profileName;
+        this.profileType = profileType;
 
     }
 
@@ -43,6 +49,10 @@ public class Profile {
 
     public String getProfileName(){
         return this.profileName;
+    }
+
+    public ProfileType getProfileType(){
+        return this.profileType;
     }
 
 }
