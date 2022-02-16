@@ -39,7 +39,7 @@ public class ItemManager {
 
     }
 
-    private static ItemStack itemBuilder(Material material, String itemName, List<String> lore, Integer modelData, Integer ID){
+    private static ItemStack itemBuilder(Material material, String itemName, List<String> lore, int modelData, int ID){
 
         ItemStack itemStack = new ItemStack(material);
         ItemMeta meta = itemStack.getItemMeta();

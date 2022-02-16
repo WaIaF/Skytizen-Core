@@ -58,7 +58,7 @@ public abstract class PluginCommand implements CommandExecutor {
 
     }
 
-    public void execute(Player player, String[] args){}
-    public void execute(CommandSender sender, String[] args){}
+    public void execute(Player player, String[] args){ /*execute as player*/ }
+    public void execute(CommandSender sender, String[] args){ /*execute as console ect.*/ }
 
 }
