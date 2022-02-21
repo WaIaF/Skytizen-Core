@@ -1,51 +1,47 @@
-package me.waiaf.skytizencore;
+package me.waiaf.skytizencore
 
-import me.waiaf.skytizencore.commands.PluginCommand;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.reflections.Reflections;
+import me.waiaf.skytizencore.commands.PluginCommand
+import org.bukkit.event.Listener
+import org.bukkit.plugin.java.JavaPlugin
+import org.reflections.Reflections
+import java.lang.reflect.InvocationTargetException
+import java.util.*
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
-
-public final class Main extends JavaPlugin {
-
-    @Override
-    public void onEnable(){
-
-        ItemManager.init();
-
-        String packageName = this.getClass().getPackage().getName();
-        
-        for (Class<?> clazz : new Reflections(packageName + ".listeners").getSubTypesOf(Listener.class)){
-
+class Main : JavaPlugin() {
+    override fun onEnable() {
+        ItemManager.init()
+        val packageName = this.javaClass.getPackage().name
+        for (clazz in Reflections("$packageName.listeners").getSubTypesOf(
+            Listener::class.java
+        )) {
             try {
-
-                Listener listener = (Listener) clazz.getDeclaredConstructor().newInstance();
-                this.getServer().getPluginManager().registerEvents(listener, this);
-
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e){
-
-                e.printStackTrace();
-
+                val listener = clazz.getDeclaredConstructor().newInstance() as Listener
+                server.pluginManager.registerEvents(listener, this)
+            } catch (e: InstantiationException) {
+                e.printStackTrace()
+            } catch (e: IllegalAccessException) {
+                e.printStackTrace()
+            } catch (e: InvocationTargetException) {
+                e.printStackTrace()
+            } catch (e: NoSuchMethodException) {
+                e.printStackTrace()
             }
-
         }
-
-        for (Class<? extends PluginCommand> clazz : new Reflections(packageName + ".commands").getSubTypesOf(PluginCommand.class)){
-
+        for (clazz in Reflections("$packageName.commands").getSubTypesOf(
+            PluginCommand::class.java
+        )) {
             try {
-
-                PluginCommand pluginCommand = clazz.getDeclaredConstructor().newInstance();
-                Objects.requireNonNull(this.getCommand(pluginCommand.getCommandInfo().name())).setExecutor(pluginCommand);
-
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e){
-
-                e.printStackTrace();
-
+                val pluginCommand = clazz.getDeclaredConstructor().newInstance()
+                Objects.requireNonNull(getCommand(pluginCommand.commandInfo.name))?.setExecutor(pluginCommand)
+            } catch (e: InstantiationException) {
+                e.printStackTrace()
+            } catch (e: IllegalAccessException) {
+                e.printStackTrace()
+            } catch (e: InvocationTargetException) {
+                e.printStackTrace()
+            } catch (e: NoSuchMethodException) {
+                e.printStackTrace()
             }
-
         }
-
     }
 }

@@ -1,64 +1,40 @@
-package me.waiaf.skytizencore.commands;
+package me.waiaf.skytizencore.commands
 
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.ChatColor
+import org.bukkit.command.Command
+import org.bukkit.command.CommandExecutor
+import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
+import java.util.*
 
-import java.util.Objects;
-
-public abstract class PluginCommand implements CommandExecutor {
-
-    private final CommandInfo commandInfo;
-
-    public PluginCommand() {
-
-        commandInfo = this.getClass().getDeclaredAnnotation(CommandInfo.class);
-        Objects.requireNonNull(commandInfo, "Epic gamer code you got there idot");
-
-    }
-
-    public CommandInfo getCommandInfo() {
-
-        return commandInfo;
-
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-        if (!commandInfo.permission().isEmpty()){
-
-            if (!sender.hasPermission(commandInfo.permission())){
-
-                sender.sendMessage(ChatColor.RED + "Bạn không có quyền sử dụng lệnh này!");
-                return true;
-
+abstract class PluginCommand : CommandExecutor {
+    val commandInfo: CommandInfo = this.javaClass.getDeclaredAnnotation(CommandInfo::class.java)
+    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
+        if (commandInfo.permission.isNotEmpty()) {
+            if (!sender.hasPermission(commandInfo.permission)) {
+                sender.sendMessage(ChatColor.RED.toString() + "Bạn không có quyền sử dụng lệnh này!")
+                return true
             }
-
         }
-
-        if (commandInfo.requiresPlayer()) {
-
-            if (!(sender instanceof Player)) {
-
-                sender.sendMessage(ChatColor.RED + "Chỉ người chơi mới có thể sử dụng được lệnh này!");
-                return true;
-
+        if (commandInfo.requiresPlayer) {
+            if (sender !is Player) {
+                sender.sendMessage(ChatColor.RED.toString() + "Chỉ người chơi mới có thể sử dụng được lệnh này!")
+                return true
             }
-
-            execute((Player) sender, args);
-            return true;
-
+            execute(sender, args)
+            return true
         }
-
-        execute(sender, args);
-        return true;
-
+        execute(sender, args)
+        return true
     }
 
-    public void execute(Player player, String[] args){ /*execute as player*/ }
-    public void execute(CommandSender sender, String[] args){ /*execute as console ect.*/ }
+    open fun execute(player: Player, args: Array<String>?) { /*execute as player*/
+    }
 
+    open fun execute(sender: CommandSender?, args: Array<String>?) { /*execute as console ect.*/
+    }
+
+    init {
+        Objects.requireNonNull(commandInfo, "Epic gamer code you got there idot")
+    }
 }

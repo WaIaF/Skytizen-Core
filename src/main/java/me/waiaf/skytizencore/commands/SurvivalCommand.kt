@@ -1,17 +1,13 @@
-package me.waiaf.skytizencore.commands;
+package me.waiaf.skytizencore.commands
 
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.entity.Player;
+import org.bukkit.ChatColor
+import org.bukkit.GameMode
+import org.bukkit.entity.Player
 
 @CommandInfo(name = "survival", permission = "rank.builder", requiresPlayer = true)
-public class SurvivalCommand extends PluginCommand {
-
-    @Override
-    public void execute(Player player, String[] args) {
-
-        player.setGameMode(GameMode.SURVIVAL);
-        player.sendMessage(ChatColor.GREEN + "Đã chuyển sang chế độ sinh tồn");
-
+class SurvivalCommand : PluginCommand() {
+    override fun execute(player: Player, args: Array<String>?) {
+        player.gameMode = GameMode.SURVIVAL
+        player.sendMessage(ChatColor.GREEN.toString() + "Đã chuyển sang chế độ sinh tồn")
     }
 }

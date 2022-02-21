@@ -1,21 +1,15 @@
-package me.waiaf.skytizencore.listeners;
+package me.waiaf.skytizencore.listeners
 
-import me.waiaf.skytizencore.ItemManager;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import me.waiaf.skytizencore.ItemManager
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerJoinEvent
 
-public class PlayerFirstJoin implements Listener {
-
+class PlayerFirstJoin : Listener {
     @EventHandler
-    public void playerFirstJoinListener(PlayerJoinEvent event){
-
-        Player player = event.getPlayer();
-
-        if (player.hasPlayedBefore()) return;
-
-        player.getInventory().setItem(8, ItemManager.menuItem);
-
+    fun playerFirstJoinListener(event: PlayerJoinEvent) {
+        val player = event.player
+        if (player.hasPlayedBefore()) return
+        player.inventory.setItem(8, ItemManager.menuItem)
     }
 }
